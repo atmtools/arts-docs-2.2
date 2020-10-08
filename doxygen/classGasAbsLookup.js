@@ -1,0 +1,27 @@
+var classGasAbsLookup =
+[
+    [ "GasAbsLookup", "classGasAbsLookup.html#a3ce7b017720a39fd30e80068621a5683", null ],
+    [ "Adapt", "classGasAbsLookup.html#a8821e457af6922bab26485030e975642", null ],
+    [ "Extract", "classGasAbsLookup.html#ab61aedef488847dc2d7112d82b1ec10c", null ],
+    [ "GetFgrid", "classGasAbsLookup.html#a6698529f1fb367359021817a2e2e711e", null ],
+    [ "GetPgrid", "classGasAbsLookup.html#a4f28c899606f36fc3f6539e83c86c75f", null ],
+    [ "abs_lookupCalc", "classGasAbsLookup.html#a15caed7959020dc86cf94f2f2cd46d36", null ],
+    [ "abs_lookupTestAccMC", "classGasAbsLookup.html#a4fd838313aca9f290dd3cafa0b4af147", null ],
+    [ "abs_lookupTestAccuracy", "classGasAbsLookup.html#aa505622692d069ef3e37f2fa938f5929", null ],
+    [ "calc_lookup_error", "classGasAbsLookup.html#a06f6c41b272cb24b6cb0fdc31bc3e895", null ],
+    [ "nca_read_from_file", "classGasAbsLookup.html#a02c5318a4646340d48910eb09a5957a1", null ],
+    [ "nca_write_to_file", "classGasAbsLookup.html#affd1d886ad8d0ee85be05c4c437ef1f8", null ],
+    [ "xml_read_from_stream", "classGasAbsLookup.html#a894a00f0062f3c499be8124ecc8d7e3a", null ],
+    [ "xml_write_to_stream", "classGasAbsLookup.html#af70086713762ce92c7de8f13b63c4875", null ],
+    [ "f_grid", "classGasAbsLookup.html#a5f31057f34c5f4a811ecc7fe70b25199", null ],
+    [ "fgp_default", "classGasAbsLookup.html#aed724fa4a1b3fe8f2b119ba6a7b63aa6", null ],
+    [ "log_p_grid", "classGasAbsLookup.html#a1dce80246da50af1d644802497d0eb88", null ],
+    [ "nls_pert", "classGasAbsLookup.html#a7a48c71516f518580356569109b864e2", null ],
+    [ "nonlinear_species", "classGasAbsLookup.html#af7f8576bcb6835a96756ed0f42e9ffe6", null ],
+    [ "p_grid", "classGasAbsLookup.html#a09bf4ca44fd842e4e5e247f00bcec19b", null ],
+    [ "species", "classGasAbsLookup.html#afca7e010cf1a8588ef9096bc35d2c021", null ],
+    [ "t_pert", "classGasAbsLookup.html#a3bf8d0d15956611226d04dcf9945e44c", null ],
+    [ "t_ref", "classGasAbsLookup.html#ad0aa626a4c83f76dbc7345c383ac8f78", null ],
+    [ "vmrs_ref", "classGasAbsLookup.html#a5fcb67849132989ef13d1580133eebd7", null ],
+    [ "xsec", "classGasAbsLookup.html#a0cb27b69bef40319e1e183679155f678", null ]
+];

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>yCloudRadar - ARTS built-in documentation server</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="navbar"><div class="breadcrumbs"><a href="../index.html">Home</a>&nbsp;>>&nbsp;<a href="../methods.html">Methods</a>&nbsp;>>&nbsp;yCloudRadar</div>
+<div class="goto">Go to: <a href="../groups/index.html">Groups</a>&nbsp;-&nbsp;<a href="../variables/index.html">Variables</a>&nbsp;-&nbsp;<a href="index.html">Methods</a>&nbsp;-&nbsp;<a href="../agendas/index.html">Agendas</a></div></div>
+<div class="content">
+<h1>ARTS built-in documentation server</h1>
+<h2>Workspace Method yCloudRadar</h2>
+<h3>Description</h3>
+<pre>
+Replaces <a href="yCalc.html">yCalc</a> for cloud radar calculations.
+
+The output format for <a href="../variables/iy.html">iy</a> from <a href="iyCloudRadar.html">iyCloudRadar</a> differs from the
+standard one, and <a href="yCalc.html">yCalc</a> can not be used for cloud radar
+simulations. This method works largely as <a href="yCalc.html">yCalc</a>, but is tailored
+to handle the output from <a href="iyCloudRadar.html">iyCloudRadar</a>.
+
+The method requires additional information about the sensor,
+regarding its recieving properties. First of all, recieved
+polarisation states are taken from <a href="../variables/sensor_pol_array.html">sensor_pol_array</a>. Note
+that this WSV allows to define several measured polarisations
+for each transmitted siggnal. For example, it is possible to
+simulate transmission of V and measuring backsacttered V and H.
+
+Secondly, the range averaging is described by <a href="../variables/range_bins.html">range_bins</a>. These
+bins can either be specified in altitude or two-way travel time.
+In both case, the edges of the range bins shall be specified.
+All data (including auxiliary variables) are returned as the
+average inside the bins. If any bin extands outisde the covered
+range, zeros are added reflectivities, while for other quantities
+(e.g. temperature) the averaging is restricted to covered part.
+
+All auxiliary data from <a href="iyCloudRadar.html">iyCloudRadar</a> are handled.
+
+No Jacobian quantities are yet handled.
+
+</pre>
+
+<p><b>Authors: </b>Patrick Eriksson
+<h3>Synopsis</h3>
+<p><table><tr><td>yCloudRadar(&nbsp;</td><td><a href="../variables/y.html">y</a>, <a href="../variables/y_aux.html">y_aux</a>, <a href="../variables/atmgeom_checked.html">atmgeom_checked</a>, <a href="../variables/atmfields_checked.html">atmfields_checked</a>, <a href="../variables/iy_aux_vars.html">iy_aux_vars</a>, <a href="../variables/stokes_dim.html">stokes_dim</a>, <a href="../variables/f_grid.html">f_grid</a>, <a href="../variables/t_field.html">t_field</a>, <a href="../variables/z_field.html">z_field</a>, <a href="../variables/vmr_field.html">vmr_field</a>, <a href="../variables/cloudbox_on.html">cloudbox_on</a>, <a href="../variables/cloudbox_checked.html">cloudbox_checked</a>, <a href="../variables/sensor_pos.html">sensor_pos</a>, <a href="../variables/sensor_los.html">sensor_los</a>, <a href="../variables/sensor_checked.html">sensor_checked</a>, <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a>, <a href="../variables/sensor_pol_array.html">sensor_pol_array</a>, <a href="../variables/range_bins.html">range_bins</a> )</td></tr></table>
+<h3>Variables</h3>
+<table>
+<tr><td>OUT</td><td class="right"><a href="../variables/y.html">y</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The measurement vector.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/y_aux.html">y_aux</a></td><td>(<a href="../groups/ArrayOfVector.html">ArrayOfVector</a>)</td><td>Data auxilary to <a href="../variables/y.html">y</a>.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/atmgeom_checked.html">atmgeom_checked</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>OK-flag for the geometry of the model atmosphere.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/atmfields_checked.html">atmfields_checked</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>OK-flag for atmospheric grids and (physical) fields.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_aux_vars.html">iy_aux_vars</a></td><td>(<a href="../groups/ArrayOfString.html">ArrayOfString</a>)</td><td>Selection of quantities for <a href="../variables/iy_aux.html">iy_aux</a> and when applicable also <a href="../variables/y_aux.html">y_aux</a>.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/stokes_dim.html">stokes_dim</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>The dimensionality of the Stokes vector (1-4).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/f_grid.html">f_grid</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The frequency grid for monochromatic pencil beam calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/t_field.html">t_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of atmospheric temperatures.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/z_field.html">z_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of geometrical altitudes.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/vmr_field.html">vmr_field</a></td><td>(<a href="../groups/Tensor4.html">Tensor4</a>)</td><td>VMR field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_on.html">cloudbox_on</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to activate the cloud box.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_checked.html">cloudbox_checked</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>OK-flag for variables associated with the cloudbox.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/sensor_pos.html">sensor_pos</a></td><td>(<a href="../groups/Matrix.html">Matrix</a>)</td><td>The sensor position for each measurement block.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/sensor_los.html">sensor_los</a></td><td>(<a href="../groups/Matrix.html">Matrix</a>)</td><td>The sensor line-of-sight (LOS) for each measurement block.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/sensor_checked.html">sensor_checked</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>OK-flag for sensor related variables.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_main_agenda.html">iy_main_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/sensor_pol_array.html">sensor_pol_array</a></td><td>(<a href="../groups/ArrayOfArrayOfIndex.html">ArrayOfArrayOfIndex</a>)</td><td>Multiple definition of sensor polarisation.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/range_bins.html">range_bins</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The range bins of an active instrument.</td></tr>
+</table>
+</div>
+<div class="footer">Page generated by arts-2.2.66 - <a href="../doccheck.html">Check docs</a></div>
+
+</body>
+</html>

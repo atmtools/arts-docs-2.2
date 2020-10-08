@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>sensor_response_za_grid - ARTS built-in documentation server</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="navbar"><div class="breadcrumbs"><a href="../index.html">Home</a>&nbsp;>>&nbsp;<a href="../variables.html">Variables</a>&nbsp;>>&nbsp;sensor_response_za_grid</div>
+<div class="goto">Go to: <a href="../groups/index.html">Groups</a>&nbsp;-&nbsp;<a href="index.html">Variables</a>&nbsp;-&nbsp;<a href="../methods/index.html">Methods</a>&nbsp;-&nbsp;<a href="../agendas/index.html">Agendas</a></div></div>
+<div class="content">
+<h1>ARTS built-in documentation server</h1>
+<h2>Workspace Variable sensor_response_za_grid</h2>
+<pre>
+The zenith angle grid associated with <a href="sensor_response.html">sensor_response</a>.
+
+A variable for communication between sensor response WSMs. Matches
+initially <a href="mblock_za_grid.html">mblock_za_grid</a>, but is later adjusted according to the
+sensor specifications. Only defined when a common grid exists. Values
+are here not repeated as in <a href="sensor_response_za.html">sensor_response_za</a>
+
+The zenith and azimuth dimensions are joined into a single dimension
+after the antenna. The variables <a href="sensor_response_za_grid.html">sensor_response_za_grid</a> and 
+<a href="sensor_response_aa_grid.html">sensor_response_aa_grid</a> have then the same length after the antenna
+(if antenna_dim = 2), holding data taken from the columns of 
+<a href="antenna_los.html">antenna_los</a>.
+
+Usage: Set by sensor response methods.
+
+Unit:  [ degrees ]
+
+</pre>
+
+<p><b>Group: </b><a href="../groups/Vector.html">Vector</a>
+<h3>Specific methods that can generate sensor_response_za_grid</h3>
+<ul>
+<li><a href="../methods/sensorOff.html">sensorOff</a>
+<li><a href="../methods/sensor_responseAntenna.html">sensor_responseAntenna</a>
+<li><a href="../methods/sensor_responseBeamSwitching.html">sensor_responseBeamSwitching</a>
+<li><a href="../methods/sensor_responseInit.html">sensor_responseInit</a>
+<li><a href="../methods/sensor_responseSimpleAMSU.html">sensor_responseSimpleAMSU</a>
+<li><a href="../methods/sensor_responseGenericAMSU.html">sensor_responseGenericAMSU</a>
+
+</ul>
+<h3>Generic and supergeneric methods that can generate sensor_response_za_grid</h3>
+<ul>
+<li><a href="../methods/VectorCreate.html">VectorCreate</a>
+<li><a href="../methods/Append.html">Append</a>
+<li><a href="../methods/Copy.html">Copy</a>
+<li><a href="../methods/dN_H11.html">dN_H11</a>
+<li><a href="../methods/dN_Ar_H13.html">dN_Ar_H13</a>
+<li><a href="../methods/dN_H98.html">dN_H98</a>
+<li><a href="../methods/dN_MH97.html">dN_MH97</a>
+<li><a href="../methods/dN_F07TR.html">dN_F07TR</a>
+<li><a href="../methods/dN_F07ML.html">dN_F07ML</a>
+<li><a href="../methods/dN_MGD_LWC.html">dN_MGD_LWC</a>
+<li><a href="../methods/dN_MGD_IWC.html">dN_MGD_IWC</a>
+<li><a href="../methods/dN_MP48.html">dN_MP48</a>
+<li><a href="../methods/Extract.html">Extract</a>
+<li><a href="../methods/ExtractFromMetaSinglePartSpecies.html">ExtractFromMetaSinglePartSpecies</a>
+<li><a href="../methods/FrequencyFromWavelength.html">FrequencyFromWavelength</a>
+<li><a href="../methods/pndFromdN.html">pndFromdN</a>
+<li><a href="../methods/ReadNetCDF.html">ReadNetCDF</a>
+<li><a href="../methods/ReadXML.html">ReadXML</a>
+<li><a href="../methods/ReadXMLIndexed.html">ReadXMLIndexed</a>
+<li><a href="../methods/Reduce.html">Reduce</a>
+<li><a href="../methods/Select.html">Select</a>
+<li><a href="../methods/TangentPointExtract.html">TangentPointExtract</a>
+<li><a href="../methods/Touch.html">Touch</a>
+<li><a href="../methods/VectorAddScalar.html">VectorAddScalar</a>
+<li><a href="../methods/VectorCrop.html">VectorCrop</a>
+<li><a href="../methods/VectorExtractFromMatrix.html">VectorExtractFromMatrix</a>
+<li><a href="../methods/VectorFlip.html">VectorFlip</a>
+<li><a href="../methods/VectorInsertGridPoints.html">VectorInsertGridPoints</a>
+<li><a href="../methods/VectorLinSpace.html">VectorLinSpace</a>
+<li><a href="../methods/VectorLogSpace.html">VectorLogSpace</a>
+<li><a href="../methods/VectorMatrixMultiply.html">VectorMatrixMultiply</a>
+<li><a href="../methods/VectorNLinSpace.html">VectorNLinSpace</a>
+<li><a href="../methods/VectorNLogSpace.html">VectorNLogSpace</a>
+<li><a href="../methods/VectorScale.html">VectorScale</a>
+<li><a href="../methods/VectorSetConstant.html">VectorSetConstant</a>
+<li><a href="../methods/VectorSet.html">VectorSet</a>
+<li><a href="../methods/VectorZtanToZaRefr1D.html">VectorZtanToZaRefr1D</a>
+<li><a href="../methods/VectorZtanToZa1D.html">VectorZtanToZa1D</a>
+
+</ul>
+<h3>Specific methods that require sensor_response_za_grid</h3>
+<ul>
+<li><a href="../methods/jacobianAddPolyfit.html">jacobianAddPolyfit</a>
+<li><a href="../methods/jacobianAddSinefit.html">jacobianAddSinefit</a>
+<li><a href="../methods/jacobianCalcFreqStretch.html">jacobianCalcFreqStretch</a>
+<li><a href="../methods/jacobianCalcPolyfit.html">jacobianCalcPolyfit</a>
+<li><a href="../methods/jacobianCalcSinefit.html">jacobianCalcSinefit</a>
+<li><a href="../methods/sensor_responseAntenna.html">sensor_responseAntenna</a>
+<li><a href="../methods/sensor_responseBackend.html">sensor_responseBackend</a>
+<li><a href="../methods/sensor_responseBackendFrequencySwitching.html">sensor_responseBackendFrequencySwitching</a>
+<li><a href="../methods/sensor_responseBeamSwitching.html">sensor_responseBeamSwitching</a>
+<li><a href="../methods/sensor_responseFillFgrid.html">sensor_responseFillFgrid</a>
+<li><a href="../methods/sensor_responseFrequencySwitching.html">sensor_responseFrequencySwitching</a>
+<li><a href="../methods/sensor_responseMixer.html">sensor_responseMixer</a>
+<li><a href="../methods/sensor_responseMultiMixerBackend.html">sensor_responseMultiMixerBackend</a>
+<li><a href="../methods/sensor_responsePolarisation.html">sensor_responsePolarisation</a>
+<li><a href="../methods/sensor_responseStokesRotation.html">sensor_responseStokesRotation</a>
+<li><a href="../methods/sensor_responseWMRF.html">sensor_responseWMRF</a>
+
+</ul>
+<h3>Generic and supergeneric methods that can use sensor_response_za_grid</h3>
+<ul>
+<li><a href="../methods/abs_cont_descriptionAppend.html">abs_cont_descriptionAppend</a>
+<li><a href="../methods/abs_lineshape_per_tgDefine.html">abs_lineshape_per_tgDefine</a>
+<li><a href="../methods/abs_lines_per_speciesReadFromCatalogues.html">abs_lines_per_speciesReadFromCatalogues</a>
+<li><a href="../methods/abs_lookupSetupBatch.html">abs_lookupSetupBatch</a>
+<li><a href="../methods/abs_speciesAdd2.html">abs_speciesAdd2</a>
+<li><a href="../methods/Append.html">Append</a>
+<li><a href="../methods/batch_atm_fields_compactFromArrayOfMatrix.html">batch_atm_fields_compactFromArrayOfMatrix</a>
+<li><a href="../methods/Compare.html">Compare</a>
+<li><a href="../methods/Compare.html">Compare</a>
+<li><a href="../methods/complex_refr_indexIceWarren84.html">complex_refr_indexIceWarren84</a>
+<li><a href="../methods/complex_refr_indexWaterLiebe93.html">complex_refr_indexWaterLiebe93</a>
+<li><a href="../methods/Copy.html">Copy</a>
+<li><a href="../methods/Delete.html">Delete</a>
+<li><a href="../methods/dN_H11.html">dN_H11</a>
+<li><a href="../methods/dN_Ar_H13.html">dN_Ar_H13</a>
+<li><a href="../methods/dN_H98.html">dN_H98</a>
+<li><a href="../methods/dN_MH97.html">dN_MH97</a>
+<li><a href="../methods/dN_F07TR.html">dN_F07TR</a>
+<li><a href="../methods/dN_F07ML.html">dN_F07ML</a>
+<li><a href="../methods/dN_MGD_LWC.html">dN_MGD_LWC</a>
+<li><a href="../methods/dN_MGD_IWC.html">dN_MGD_IWC</a>
+<li><a href="../methods/dN_MP48.html">dN_MP48</a>
+<li><a href="../methods/doit_conv_flagAbs.html">doit_conv_flagAbs</a>
+<li><a href="../methods/doit_conv_flagAbsBT.html">doit_conv_flagAbsBT</a>
+<li><a href="../methods/doit_conv_flagLsq.html">doit_conv_flagLsq</a>
+<li><a href="../methods/doit_i_fieldSetConst.html">doit_i_fieldSetConst</a>
+<li><a href="../methods/Extract.html">Extract</a>
+<li><a href="../methods/FrequencyFromWavelength.html">FrequencyFromWavelength</a>
+<li><a href="../methods/f_gridFromSensorAMSUgeneric.html">f_gridFromSensorAMSUgeneric</a>
+<li><a href="../methods/Ignore.html">Ignore</a>
+<li><a href="../methods/jacobianAddAbsSpecies.html">jacobianAddAbsSpecies</a>
+<li><a href="../methods/jacobianAddSinefit.html">jacobianAddSinefit</a>
+<li><a href="../methods/jacobianAddTemperature.html">jacobianAddTemperature</a>
+<li><a href="../methods/jacobianAddWind.html">jacobianAddWind</a>
+<li><a href="../methods/MatrixCBR.html">MatrixCBR</a>
+<li><a href="../methods/MatrixPlanck.html">MatrixPlanck</a>
+<li><a href="../methods/MatrixUnitIntensity.html">MatrixUnitIntensity</a>
+<li><a href="../methods/Matrix1ColFromVector.html">Matrix1ColFromVector</a>
+<li><a href="../methods/Matrix2ColFromVectors.html">Matrix2ColFromVectors</a>
+<li><a href="../methods/Matrix3ColFromVectors.html">Matrix3ColFromVectors</a>
+<li><a href="../methods/Matrix1RowFromVector.html">Matrix1RowFromVector</a>
+<li><a href="../methods/Matrix2RowFromVectors.html">Matrix2RowFromVectors</a>
+<li><a href="../methods/Matrix3RowFromVectors.html">Matrix3RowFromVectors</a>
+<li><a href="../methods/nelemGet.html">nelemGet</a>
+<li><a href="../methods/pndFromdN.html">pndFromdN</a>
+<li><a href="../methods/Print.html">Print</a>
+<li><a href="../methods/propmat_clearsky_fieldCalc.html">propmat_clearsky_fieldCalc</a>
+<li><a href="../methods/Reduce.html">Reduce</a>
+<li><a href="../methods/scat_meta_arrayAddTmatrix.html">scat_meta_arrayAddTmatrix</a>
+<li><a href="../methods/scat_meta_arrayAddTmatrixOldVersion.html">scat_meta_arrayAddTmatrixOldVersion</a>
+<li><a href="../methods/scat_data_arrayFromMeta.html">scat_data_arrayFromMeta</a>
+<li><a href="../methods/Select.html">Select</a>
+<li><a href="../methods/VectorAddScalar.html">VectorAddScalar</a>
+<li><a href="../methods/VectorCrop.html">VectorCrop</a>
+<li><a href="../methods/VectorFlip.html">VectorFlip</a>
+<li><a href="../methods/VectorInsertGridPoints.html">VectorInsertGridPoints</a>
+<li><a href="../methods/VectorMatrixMultiply.html">VectorMatrixMultiply</a>
+<li><a href="../methods/VectorScale.html">VectorScale</a>
+<li><a href="../methods/VectorSet.html">VectorSet</a>
+<li><a href="../methods/VectorZtanToZaRefr1D.html">VectorZtanToZaRefr1D</a>
+<li><a href="../methods/VectorZtanToZa1D.html">VectorZtanToZa1D</a>
+<li><a href="../methods/WriteNetCDF.html">WriteNetCDF</a>
+<li><a href="../methods/WriteNetCDFIndexed.html">WriteNetCDFIndexed</a>
+<li><a href="../methods/WriteXML.html">WriteXML</a>
+<li><a href="../methods/WriteXMLIndexed.html">WriteXMLIndexed</a>
+
+</ul>
+<h3>Agendas that can generate sensor_response_za_grid</h3>
+<ul>
+<li>none
+
+</ul>
+<h3>Agendas that require sensor_response_za_grid</h3>
+<ul>
+<li>none
+
+</ul>
+</div>
+<div class="footer">Page generated by arts-2.2.66 - <a href="../doccheck.html">Check docs</a></div>
+
+</body>
+</html>

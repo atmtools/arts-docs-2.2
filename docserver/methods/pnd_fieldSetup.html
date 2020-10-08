@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>pnd_fieldSetup - ARTS built-in documentation server</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="navbar"><div class="breadcrumbs"><a href="../index.html">Home</a>&nbsp;>>&nbsp;<a href="../methods.html">Methods</a>&nbsp;>>&nbsp;pnd_fieldSetup</div>
+<div class="goto">Go to: <a href="../groups/index.html">Groups</a>&nbsp;-&nbsp;<a href="../variables/index.html">Variables</a>&nbsp;-&nbsp;<a href="index.html">Methods</a>&nbsp;-&nbsp;<a href="../agendas/index.html">Agendas</a></div></div>
+<div class="content">
+<h1>ARTS built-in documentation server</h1>
+<h2>Workspace Method pnd_fieldSetup</h2>
+<h3>Description</h3>
+<pre>
+Calculation of <a href="../variables/pnd_field.html">pnd_field</a> using ScatteringMetaData and <a href="../variables/massdensity_field.html">massdensity_field</a>.
+
+The WSM first checks if cloudbox is empty. If so, the pnd calculations
+will be skipped.
+The <a href="../variables/cloudbox_limits.html">cloudbox_limits</a> are used to determine the p, lat and lon size for
+the <a href="../variables/pnd_field.html">pnd_field</a> tensor.
+Currently there are three particle size distribution (PSD) parameterisations
+implemented:
+	1. 'MH97' for ice particles. Parameterisation in temperature and mass content.
+	 Using a first-order gamma distribution for particles smaller than 
+	 100 microns (melted diameter) and a lognormal distribution for
+	 particles bigger 100 microns. Values from both modes are cumulative.
+	 See internal function 'IWCtopnd_MH97' for implementation/units/output.
+	 (src.: McFarquhar G.M., Heymsfield A.J., 1997)
+	2. 'H11' for cloud ice and precipitating ice (snow). H11 is NOT dependent
+	 on mass content of ice/snow, but only on atmospheric temperature.
+	 The PSD is scaled to the current IWC/Snow density in an additional step.
+	 See internal function 'pnd_H11' and 'scale_H11' for implementation/units/output.
+	 (src.: Heymsfield A.J., 2011, not published yet)
+	3. 'H98_STCO' for liquid water clouds. Using a gamma distribution with
+	 parameters from Hess et al., 1998, continental stratus.
+	 See internal function 'LWCtopnd' for implementation/units/output.
+	 (src.: Deirmendjian D., 1963 and Hess M., et al 1998)
+
+According to the selection criteria in <a href="../variables/part_species.html">part_species</a>, the first specified
+psd parametrisation is selected together with all particles of specified phase
+and size. Then pnd calculations are performed on all levels inside the cloudbox.
+The <a href="../variables/massdensity_field.html">massdensity_field</a> input weights the pnds by the amount of scattering
+particles in each gridbox inside the cloudbox. Where <a href="../variables/massdensity_field.html">massdensity_field</a> is zero,
+the <a href="../variables/pnd_field.html">pnd_field</a> will be zero as well.
+Subsequently the pnd values get written to <a href="../variables/pnd_field.html">pnd_field</a>.
+
+Now the next selection criteria string in <a href="../variables/part_species.html">part_species</a> is used to repeat
+the process.The new pnd values will be appended to the existing <a href="../variables/pnd_field.html">pnd_field</a>.
+And so on...
+
+NOTE: the order of scattering particle profiles in <a href="../variables/massdensity_field.html">massdensity_field</a> has to
+fit the order of part_species tags!
+
+</pre>
+
+<p><b>Authors: </b>Daniel Kreyling
+<h3>Synopsis</h3>
+<p><table><tr><td>pnd_fieldSetup(&nbsp;</td><td><a href="../variables/pnd_field.html">pnd_field</a>, <a href="../variables/atmosphere_dim.html">atmosphere_dim</a>, <a href="../variables/cloudbox_on.html">cloudbox_on</a>, <a href="../variables/cloudbox_limits.html">cloudbox_limits</a>, <a href="../variables/massdensity_field.html">massdensity_field</a>, <a href="../variables/t_field.html">t_field</a>, <a href="../variables/scat_meta_array.html">scat_meta_array</a>, <a href="../variables/part_species.html">part_species</a>, <a href="../variables/scat_data_per_part_species.html">scat_data_per_part_species</a>, delim )</td></tr></table>
+<h3>Variables</h3>
+<table>
+<tr><td>OUT</td><td class="right"><a href="../variables/pnd_field.html">pnd_field</a></td><td>(<a href="../groups/Tensor4.html">Tensor4</a>)</td><td>Particle number density field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/atmosphere_dim.html">atmosphere_dim</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>The atmospheric dimensionality (1-3).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_on.html">cloudbox_on</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to activate the cloud box.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_limits.html">cloudbox_limits</a></td><td>(<a href="../groups/ArrayOfIndex.html">ArrayOfIndex</a>)</td><td>The limits of the cloud box.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/massdensity_field.html">massdensity_field</a></td><td>(<a href="../groups/Tensor4.html">Tensor4</a>)</td><td>The field of atmospheric scattering particle types in unit of massdensity (like IWC/LWC/Rain/Aerosol etc.).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/t_field.html">t_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of atmospheric temperatures.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/scat_meta_array.html">scat_meta_array</a></td><td>(<a href="../groups/ArrayOfScatteringMetaData.html">ArrayOfScatteringMetaData</a>)</td><td>An Array of scattering meta data (<a href="../variables/scat_meta.html">scat_meta</a>).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/part_species.html">part_species</a></td><td>(<a href="../groups/ArrayOfString.html">ArrayOfString</a>)</td><td>Array of Strings defining (scattering) particles to consider and their connection to particle fields.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/scat_data_per_part_species.html">scat_data_per_part_species</a></td><td>(<a href="../groups/ArrayOfIndex.html">ArrayOfIndex</a>)</td><td>Auxiliary array holding the number of <a href="../variables/scat_data_array.html">scat_data_array</a> particle entries associated with each entry in <a href="../variables/part_species.html">part_species</a>.</td></tr>
+<tr><td>GIN</td><td class="right">delim</td><td>(<a href="../groups/String.html">String</a>, Default: "-")</td><td>Delimiter string of <a href="../variables/part_species.html">part_species</a> elements</td></tr>
+</table>
+</div>
+<div class="footer">Page generated by arts-2.2.66 - <a href="../doccheck.html">Check docs</a></div>
+
+</body>
+</html>

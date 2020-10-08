@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>iyFOS - ARTS built-in documentation server</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="navbar"><div class="breadcrumbs"><a href="../index.html">Home</a>&nbsp;>>&nbsp;<a href="../methods.html">Methods</a>&nbsp;>>&nbsp;iyFOS</div>
+<div class="goto">Go to: <a href="../groups/index.html">Groups</a>&nbsp;-&nbsp;<a href="../variables/index.html">Variables</a>&nbsp;-&nbsp;<a href="index.html">Methods</a>&nbsp;-&nbsp;<a href="../agendas/index.html">Agendas</a></div></div>
+<div class="content">
+<h1>ARTS built-in documentation server</h1>
+<h2>Workspace Method iyFOS</h2>
+<h3>Description</h3>
+<pre>
+Method in development. Don't use without contacting Patrick.
+
+Regarding radiance unit, works exactly as <a href="iyEmissionStandard.html">iyEmissionStandard</a>.
+
+The *fos_n* argument determines the maximum scattering order that
+will be considered. For example, 1 corresponds to that only single
+scattering is considered. The value 0 is accepted and results
+in calculations of clear-sky type. In the later case, particle
+absorption/emission is considered if cloudbox is active. If
+cloudbox is not active,clear-sky results are returned for all
+values of *fos_n*.
+
+The following auxiliary data can be obtained:
+  "Pressure": The pressure along the propagation path.
+     Size: [1,1,1,np].
+  "Temperature": The temperature along the propagation path.
+     Size: [1,1,1,np].
+  "VMR, species X": VMR of the species with index X (zero based).
+     For example, adding the string "VMR, species 0" extracts the
+     VMR of the first species. Size: [1,1,1,np].
+  "Absorption, summed": The total absorption matrix along the
+     path. Size: [nf,ns,ns,np].
+  "Absorption, species X": The absorption matrix along the path
+     for an individual species (X works as for VMR).
+     Size: [nf,ns,ns,np].
+  "PND, type X": The particle number density for particle type X
+       (ie. corresponds to book X in pnd_field). Size: [1,1,1,np].
+  "Mass content, X": The particle content for mass category X.
+       This corresponds to column X in <a href="../variables/particle_masses.html">particle_masses</a> (zero-
+       based indexing). Size: [1,1,1,np].
+* "Radiative background": Index value flagging the radiative
+     background. The following coding is used: 0=space and
+     and 1=surface. Size: [nf,1,1,1].
+  "iy": The radiance at each point along the path (<a href="../variables/iy_unit.html">iy_unit</a> is.
+     considered). Size: [nf,ns,1,np].
+* "Optical depth": The scalar optical depth between the
+     observation point and the end of the primary propagation path
+     (ie. the optical depth to the surface or space.). Calculated
+     in a pure scalar manner, and not dependent on direction.
+     Size: [nf,1,1,1].
+where
+  nf: Number of frequencies.
+  ns: Number of Stokes elements.
+  np: Number of propagation path points.
+
+The auxiliary data are returned in <a href="../variables/iy_aux.html">iy_aux</a> with quantities
+selected by <a href="../variables/iy_aux_vars.html">iy_aux_vars</a>. Most variables require that the method
+is called directly or by <a href="iyCalc.html">iyCalc</a>. For calculations using <a href="yCalc.html">yCalc</a>,
+the selection is restricted to the variables marked with *.
+
+</pre>
+
+<p><b>Authors: </b>Patrick Eriksson
+<h3>Synopsis</h3>
+<p><table><tr><td>iyFOS(&nbsp;</td><td><a href="../variables/iy.html">iy</a>, <a href="../variables/iy_aux.html">iy_aux</a>, <a href="../variables/ppath.html">ppath</a>, <a href="../variables/diy_dx.html">diy_dx</a>, <a href="../variables/stokes_dim.html">stokes_dim</a>, <a href="../variables/f_grid.html">f_grid</a>, <a href="../variables/atmosphere_dim.html">atmosphere_dim</a>, <a href="../variables/p_grid.html">p_grid</a>, <a href="../variables/z_field.html">z_field</a>, <a href="../variables/t_field.html">t_field</a>, <a href="../variables/vmr_field.html">vmr_field</a>, <a href="../variables/abs_species.html">abs_species</a>, <a href="../variables/wind_u_field.html">wind_u_field</a>, <a href="../variables/wind_v_field.html">wind_v_field</a>, <a href="../variables/wind_w_field.html">wind_w_field</a>, <a href="../variables/mag_u_field.html">mag_u_field</a>, <a href="../variables/mag_v_field.html">mag_v_field</a>, <a href="../variables/mag_w_field.html">mag_w_field</a>, <a href="../variables/cloudbox_on.html">cloudbox_on</a>, <a href="../variables/cloudbox_limits.html">cloudbox_limits</a>, <a href="../variables/pnd_field.html">pnd_field</a>, <a href="../variables/use_mean_scat_data.html">use_mean_scat_data</a>, <a href="../variables/scat_data_array.html">scat_data_array</a>, <a href="../variables/particle_masses.html">particle_masses</a>, <a href="../variables/iy_unit.html">iy_unit</a>, <a href="../variables/iy_aux_vars.html">iy_aux_vars</a>, <a href="../variables/jacobian_do.html">jacobian_do</a>, <a href="../agendas/ppath_agenda.html">ppath_agenda</a>, <a href="../agendas/blackbody_radiation_agenda.html">blackbody_radiation_agenda</a>, <a href="../agendas/propmat_clearsky_agenda.html">propmat_clearsky_agenda</a>, <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a>, <a href="../agendas/iy_space_agenda.html">iy_space_agenda</a>, <a href="../agendas/iy_surface_agenda.html">iy_surface_agenda</a>, <a href="../variables/iy_agenda_call1.html">iy_agenda_call1</a>, <a href="../variables/iy_transmission.html">iy_transmission</a>, <a href="../variables/rte_pos.html">rte_pos</a>, <a href="../variables/rte_los.html">rte_los</a>, <a href="../variables/rte_pos2.html">rte_pos2</a>, <a href="../variables/rte_alonglos_v.html">rte_alonglos_v</a>, 
+       <a href="../variables/ppath_lraytrace.html">ppath_lraytrace</a>, <a href="../variables/fos_scatint_angles.html">fos_scatint_angles</a>, <a href="../variables/fos_iyin_za_angles.html">fos_iyin_za_angles</a>, fos_za_interporder, fos_n )</td></tr></table>
+<h3>Variables</h3>
+<table>
+<tr><td>OUT</td><td class="right"><a href="../variables/iy.html">iy</a></td><td>(<a href="../groups/Matrix.html">Matrix</a>)</td><td>Monochromatic pencil beam radiance spectrum.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/iy_aux.html">iy_aux</a></td><td>(<a href="../groups/ArrayOfTensor4.html">ArrayOfTensor4</a>)</td><td>Data auxiliary to <a href="../variables/iy.html">iy</a>.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/ppath.html">ppath</a></td><td>(<a href="../groups/Ppath.html">Ppath</a>)</td><td>The propagation path for one line-of-sight.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/diy_dx.html">diy_dx</a></td><td>(<a href="../groups/ArrayOfTensor3.html">ArrayOfTensor3</a>)</td><td>Derivative of <a href="../variables/iy.html">iy</a> with respect to retrieval quantities.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/stokes_dim.html">stokes_dim</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>The dimensionality of the Stokes vector (1-4).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/f_grid.html">f_grid</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The frequency grid for monochromatic pencil beam calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/atmosphere_dim.html">atmosphere_dim</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>The atmospheric dimensionality (1-3).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/p_grid.html">p_grid</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The pressure grid.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/z_field.html">z_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of geometrical altitudes.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/t_field.html">t_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of atmospheric temperatures.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/vmr_field.html">vmr_field</a></td><td>(<a href="../groups/Tensor4.html">Tensor4</a>)</td><td>VMR field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/abs_species.html">abs_species</a></td><td>(<a href="../groups/ArrayOfArrayOfSpeciesTag.html">ArrayOfArrayOfSpeciesTag</a>)</td><td>Tag groups for scalar gas absorption.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/wind_u_field.html">wind_u_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Zonal component of the wind field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/wind_v_field.html">wind_v_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Meridional component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/wind_w_field.html">wind_w_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Vertical wind component field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/mag_u_field.html">mag_u_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Zonal component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/mag_v_field.html">mag_v_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Meridional component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/mag_w_field.html">mag_w_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Vertical component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_on.html">cloudbox_on</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to activate the cloud box.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_limits.html">cloudbox_limits</a></td><td>(<a href="../groups/ArrayOfIndex.html">ArrayOfIndex</a>)</td><td>The limits of the cloud box.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/pnd_field.html">pnd_field</a></td><td>(<a href="../groups/Tensor4.html">Tensor4</a>)</td><td>Particle number density field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/use_mean_scat_data.html">use_mean_scat_data</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to use same scattering properties for all frequencies.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/scat_data_array.html">scat_data_array</a></td><td>(<a href="../groups/ArrayOfSingleScatteringData.html">ArrayOfSingleScatteringData</a>)</td><td>Raw data of single scattering data.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/particle_masses.html">particle_masses</a></td><td>(<a href="../groups/Matrix.html">Matrix</a>)</td><td>The mass of individual particles (or bulks).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_unit.html">iy_unit</a></td><td>(<a href="../groups/String.html">String</a>)</td><td>Selection of output unit for some radiative transfer methods.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_aux_vars.html">iy_aux_vars</a></td><td>(<a href="../groups/ArrayOfString.html">ArrayOfString</a>)</td><td>Selection of quantities for <a href="../variables/iy_aux.html">iy_aux</a> and when applicable also <a href="../variables/y_aux.html">y_aux</a>.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/jacobian_do.html">jacobian_do</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to activate jacobian calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/ppath_agenda.html">ppath_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/blackbody_radiation_agenda.html">blackbody_radiation_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/propmat_clearsky_agenda.html">propmat_clearsky_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_main_agenda.html">iy_main_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_space_agenda.html">iy_space_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_surface_agenda.html">iy_surface_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_agenda_call1.html">iy_agenda_call1</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to handle recursive calls of <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a>  The agenda <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a> can be used recursively and this flag is used to tell the methods inside the agenda which is the primary  call.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_transmission.html">iy_transmission</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Transmission to be included in <a href="../variables/iy.html">iy</a>.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_pos.html">rte_pos</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>A geographical position for starting radiative transfer calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_los.html">rte_los</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>A line-of-sight for (complete) radiative transfer calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_pos2.html">rte_pos2</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>A second geographical position to define the geometry for radiative transfer calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_alonglos_v.html">rte_alonglos_v</a></td><td>(<a href="../groups/Numeric.html">Numeric</a>)</td><td>Velocity along the line-of-sight to consider for a RT calculation.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/ppath_lraytrace.html">ppath_lraytrace</a></td><td>(<a href="../groups/Numeric.html">Numeric</a>)</td><td>Maximum length of ray tracing steps when determining propagation paths.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/fos_scatint_angles.html">fos_scatint_angles</a></td><td>(<a href="../groups/Matrix.html">Matrix</a>)</td><td>So far just testing of FOS ...</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/fos_iyin_za_angles.html">fos_iyin_za_angles</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>So far just testing of FOS ...</td></tr>
+<tr><td>GIN</td><td class="right">fos_za_interporder</td><td>(<a href="../groups/Index.html">Index</a>, Default: 1)</td><td>Polynomial order for zenith angle interpolation.</td></tr>
+<tr><td>GIN</td><td class="right">fos_n</td><td>(<a href="../groups/Index.html">Index</a>, Default: 1)</td><td>Max scattering order to consider.</td></tr>
+</table>
+</div>
+<div class="footer">Page generated by arts-2.2.66 - <a href="../doccheck.html">Check docs</a></div>
+
+</body>
+</html>

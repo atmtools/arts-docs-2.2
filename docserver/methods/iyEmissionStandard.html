@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>iyEmissionStandard - ARTS built-in documentation server</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="navbar"><div class="breadcrumbs"><a href="../index.html">Home</a>&nbsp;>>&nbsp;<a href="../methods.html">Methods</a>&nbsp;>>&nbsp;iyEmissionStandard</div>
+<div class="goto">Go to: <a href="../groups/index.html">Groups</a>&nbsp;-&nbsp;<a href="../variables/index.html">Variables</a>&nbsp;-&nbsp;<a href="index.html">Methods</a>&nbsp;-&nbsp;<a href="../agendas/index.html">Agendas</a></div></div>
+<div class="content">
+<h1>ARTS built-in documentation server</h1>
+<h2>Workspace Method iyEmissionStandard</h2>
+<h3>Description</h3>
+<pre>
+Standard method for radiative transfer calculations with emission.
+
+Designed to be part of <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a>. That is, only valid
+outside the cloudbox (no scattering). Assumes local thermodynamic
+equilibrium for emission. The basic calculation strategy is to take
+the average of the absorption and the emission source function at
+the end points of each step of the propagation path. For details
+see the user guide.
+
+The internal radiance unit is determined by your definition of
+blackbody radiation inside the atmospheric and surface source
+terms. Set <a href="../variables/iy_unit.html">iy_unit</a> to "1" if you want this to also be the unit
+for output radiances. If you want another output unit, you need to
+make sure that the internal unit is [W/m2/Hz/sr] (ie. the frequency
+version of the Planck function). The possible choices for <a href="../variables/iy_unit.html">iy_unit</a>
+are:
+ "1"             : No conversion.
+ "RJBT"          : Conversion to Rayleigh-Jean brightness
+                     temperature.
+ "PlanckBT"      : Conversion to Planck brightness temperature.
+ "W/(m^2 m sr)"  : Conversion to [W/(m^2 m sr)] (radiance per
+                     wavelength unit).
+ "W/(m^2 m-1 sr)": Conversion to [W/(m^2 m-1 sr)] (radiance per
+                     wavenumber unit).
+
+Please note that there is no way for ARTS to strictly check the
+internal unit. In principle, the unit can differ between the
+elements. The user must makes sure that any unit conversion is
+applied correctly, and in accordance with the calibration of the
+instrument of concern. Expressions applied and considerations for
+the unit conversion of radiances are discussed in Sec. 5.7 of the
+ARTS-2 article.
+
+The following auxiliary data can be obtained:
+  "Pressure": The pressure along the propagation path.
+     Size: [1,1,1,np].
+  "Temperature": The temperature along the propagation path.
+     Size: [1,1,1,np].
+  "VMR, species X": VMR of the species with index X (zero based).
+     For example, adding the string "VMR, species 0" extracts the
+     VMR of the first species. Size: [1,1,1,np].
+  "Absorption, summed": The total absorption matrix along the
+     path. Size: [nf,ns,ns,np].
+  "Absorption, species X": The absorption matrix along the path
+     for an individual species (X works as for VMR).
+     Size: [nf,ns,ns,np].
+* "Radiative background": Index value flagging the radiative
+     background. The following coding is used: 0=space, 1=surface
+     and 2=cloudbox. Size: [nf,1,1,1].
+  "iy": The radiance at each point along the path (<a href="../variables/iy_unit.html">iy_unit</a> is.
+     considered). Size: [nf,ns,1,np].
+  "Transmission": The transmission matrix from the surface, space
+     or cloudbox, to each propagation path point. The matrix is
+     valid for the photon direction. Size: [nf,ns,ns,np].
+* "Optical depth": The scalar optical depth between the
+     observation point and the end of the primary propagation path
+     (ie. the optical depth to the surface or space.). Calculated
+     in a pure scalar manner, and not dependent on direction.
+     Size: [nf,1,1,1].
+where
+  nf: Number of frequencies.
+  ns: Number of Stokes elements.
+  np: Number of propagation path points.
+
+The auxiliary data are returned in <a href="../variables/iy_aux.html">iy_aux</a> with quantities
+selected by <a href="../variables/iy_aux_vars.html">iy_aux_vars</a>. Most variables require that the method
+is called directly or by <a href="iyCalc.html">iyCalc</a>. For calculations using <a href="yCalc.html">yCalc</a>,
+the selection is restricted to the variables marked with *.
+
+In addition, these choices are accepted but no calculations are
+done:
+  "PND, type X": Size: [0,0,0,0].
+  "Mass content, X": Size: [0,0,0,0].
+See e.g. <a href="iyTransmissionStandard.html">iyTransmissionStandard</a> for a definition of these
+variables. To fill these elements of <a href="../variables/iy_aux.html">iy_aux</a> (after calling
+this WSM), use <a href="iy_auxFillParticleVariables.html">iy_auxFillParticleVariables</a>.
+
+</pre>
+
+<p><b>Authors: </b>Patrick Eriksson
+<h3>Synopsis</h3>
+<p><table><tr><td>iyEmissionStandard(&nbsp;</td><td><a href="../variables/iy.html">iy</a>, <a href="../variables/iy_aux.html">iy_aux</a>, <a href="../variables/ppath.html">ppath</a>, <a href="../variables/diy_dx.html">diy_dx</a>, <a href="../variables/stokes_dim.html">stokes_dim</a>, <a href="../variables/f_grid.html">f_grid</a>, <a href="../variables/atmosphere_dim.html">atmosphere_dim</a>, <a href="../variables/p_grid.html">p_grid</a>, <a href="../variables/z_field.html">z_field</a>, <a href="../variables/t_field.html">t_field</a>, <a href="../variables/vmr_field.html">vmr_field</a>, <a href="../variables/abs_species.html">abs_species</a>, <a href="../variables/wind_u_field.html">wind_u_field</a>, <a href="../variables/wind_v_field.html">wind_v_field</a>, <a href="../variables/wind_w_field.html">wind_w_field</a>, <a href="../variables/mag_u_field.html">mag_u_field</a>, <a href="../variables/mag_v_field.html">mag_v_field</a>, <a href="../variables/mag_w_field.html">mag_w_field</a>, <a href="../variables/cloudbox_on.html">cloudbox_on</a>, <a href="../variables/iy_unit.html">iy_unit</a>, <a href="../variables/iy_aux_vars.html">iy_aux_vars</a>, <a href="../variables/jacobian_do.html">jacobian_do</a>, <a href="../variables/jacobian_quantities.html">jacobian_quantities</a>, <a href="../variables/jacobian_indices.html">jacobian_indices</a>, <a href="../agendas/ppath_agenda.html">ppath_agenda</a>, <a href="../agendas/blackbody_radiation_agenda.html">blackbody_radiation_agenda</a>, <a href="../agendas/propmat_clearsky_agenda.html">propmat_clearsky_agenda</a>, <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a>, <a href="../agendas/iy_space_agenda.html">iy_space_agenda</a>, <a href="../agendas/iy_surface_agenda.html">iy_surface_agenda</a>, <a href="../agendas/iy_cloudbox_agenda.html">iy_cloudbox_agenda</a>, <a href="../variables/iy_agenda_call1.html">iy_agenda_call1</a>, <a href="../variables/iy_transmission.html">iy_transmission</a>, <a href="../variables/rte_pos.html">rte_pos</a>, <a href="../variables/rte_los.html">rte_los</a>, <a href="../variables/rte_pos2.html">rte_pos2</a>, <a href="../variables/rte_alonglos_v.html">rte_alonglos_v</a>, <a href="../variables/ppath_lraytrace.html">ppath_lraytrace</a> )</td></tr></table>
+<h3>Variables</h3>
+<table>
+<tr><td>OUT</td><td class="right"><a href="../variables/iy.html">iy</a></td><td>(<a href="../groups/Matrix.html">Matrix</a>)</td><td>Monochromatic pencil beam radiance spectrum.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/iy_aux.html">iy_aux</a></td><td>(<a href="../groups/ArrayOfTensor4.html">ArrayOfTensor4</a>)</td><td>Data auxiliary to <a href="../variables/iy.html">iy</a>.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/ppath.html">ppath</a></td><td>(<a href="../groups/Ppath.html">Ppath</a>)</td><td>The propagation path for one line-of-sight.</td></tr>
+<tr><td>OUT</td><td class="right"><a href="../variables/diy_dx.html">diy_dx</a></td><td>(<a href="../groups/ArrayOfTensor3.html">ArrayOfTensor3</a>)</td><td>Derivative of <a href="../variables/iy.html">iy</a> with respect to retrieval quantities.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/stokes_dim.html">stokes_dim</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>The dimensionality of the Stokes vector (1-4).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/f_grid.html">f_grid</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The frequency grid for monochromatic pencil beam calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/atmosphere_dim.html">atmosphere_dim</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>The atmospheric dimensionality (1-3).</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/p_grid.html">p_grid</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>The pressure grid.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/z_field.html">z_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of geometrical altitudes.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/t_field.html">t_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>The field of atmospheric temperatures.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/vmr_field.html">vmr_field</a></td><td>(<a href="../groups/Tensor4.html">Tensor4</a>)</td><td>VMR field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/abs_species.html">abs_species</a></td><td>(<a href="../groups/ArrayOfArrayOfSpeciesTag.html">ArrayOfArrayOfSpeciesTag</a>)</td><td>Tag groups for scalar gas absorption.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/wind_u_field.html">wind_u_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Zonal component of the wind field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/wind_v_field.html">wind_v_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Meridional component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/wind_w_field.html">wind_w_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Vertical wind component field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/mag_u_field.html">mag_u_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Zonal component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/mag_v_field.html">mag_v_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Meridional component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/mag_w_field.html">mag_w_field</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Vertical component of the magnetic field.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/cloudbox_on.html">cloudbox_on</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to activate the cloud box.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_unit.html">iy_unit</a></td><td>(<a href="../groups/String.html">String</a>)</td><td>Selection of output unit for some radiative transfer methods.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_aux_vars.html">iy_aux_vars</a></td><td>(<a href="../groups/ArrayOfString.html">ArrayOfString</a>)</td><td>Selection of quantities for <a href="../variables/iy_aux.html">iy_aux</a> and when applicable also <a href="../variables/y_aux.html">y_aux</a>.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/jacobian_do.html">jacobian_do</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to activate jacobian calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/jacobian_quantities.html">jacobian_quantities</a></td><td>(<a href="../groups/ArrayOfRetrievalQuantity.html">ArrayOfRetrievalQuantity</a>)</td><td>The retrieval quantities in the Jacobian matrix.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/jacobian_indices.html">jacobian_indices</a></td><td>(<a href="../groups/ArrayOfArrayOfIndex.html">ArrayOfArrayOfIndex</a>)</td><td>First and last column index in <a href="../variables/jacobian.html">jacobian</a> for each retrieval quantity.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/ppath_agenda.html">ppath_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/blackbody_radiation_agenda.html">blackbody_radiation_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/propmat_clearsky_agenda.html">propmat_clearsky_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_main_agenda.html">iy_main_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_space_agenda.html">iy_space_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_surface_agenda.html">iy_surface_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../agendas/iy_cloudbox_agenda.html">iy_cloudbox_agenda</a></td><td>(<a href="../groups/Agenda.html">Agenda</a>)</td><td>See agendas.cc.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_agenda_call1.html">iy_agenda_call1</a></td><td>(<a href="../groups/Index.html">Index</a>)</td><td>Flag to handle recursive calls of <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a>  The agenda <a href="../agendas/iy_main_agenda.html">iy_main_agenda</a> can be used recursively and this flag is used to tell the methods inside the agenda which is the primary  call.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/iy_transmission.html">iy_transmission</a></td><td>(<a href="../groups/Tensor3.html">Tensor3</a>)</td><td>Transmission to be included in <a href="../variables/iy.html">iy</a>.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_pos.html">rte_pos</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>A geographical position for starting radiative transfer calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_los.html">rte_los</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>A line-of-sight for (complete) radiative transfer calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_pos2.html">rte_pos2</a></td><td>(<a href="../groups/Vector.html">Vector</a>)</td><td>A second geographical position to define the geometry for radiative transfer calculations.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/rte_alonglos_v.html">rte_alonglos_v</a></td><td>(<a href="../groups/Numeric.html">Numeric</a>)</td><td>Velocity along the line-of-sight to consider for a RT calculation.</td></tr>
+<tr><td>IN</td><td class="right"><a href="../variables/ppath_lraytrace.html">ppath_lraytrace</a></td><td>(<a href="../groups/Numeric.html">Numeric</a>)</td><td>Maximum length of ray tracing steps when determining propagation paths.</td></tr>
+</table>
+</div>
+<div class="footer">Page generated by arts-2.2.66 - <a href="../doccheck.html">Check docs</a></div>
+
+</body>
+</html>
